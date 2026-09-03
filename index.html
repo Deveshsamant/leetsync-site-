@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="signal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetSync — your LeetCode solutions, on GitHub, automatically</title>
+  <meta name="description" content="A Chrome extension that pushes every accepted LeetCode solution straight to your GitHub repo, with study sheets, a solve tracker and a generated README.">
+  <link rel="icon" href="img/favicon.png" type="image/png">
+
+  <meta property="og:title" content="LeetSync — your LeetCode solutions, on GitHub, automatically">
+  <meta property="og:description" content="Solve. Submit. Synced. Every accepted solution pushed to your repo, with study sheets and a generated README.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="img/popup-dashboard-dark.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top">
+    <img src="img/logo.png" alt="" width="32" height="32">
+    <span class="brand-name">LeetSync</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#screens">Screens</a>
+    <a href="#readme">Your README</a>
+    <a href="#privacy">Privacy</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme">
+      <span class="theme-dot"></span><span id="themeName">Signal</span>
+    </button>
+    <a class="btn btn-primary" data-store-link href="https://github.com/Deveshsamant/LeetSync">Add to Chrome</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Chrome extension · v1.6.0 · Free</div>
+      <h1>Solve.<br>Submit.<br><span class="ac">Synced.</span></h1>
+      <p class="lede">
+        LeetSync watches for accepted submissions and pushes them to your own
+        GitHub repository — the code, a README per problem, and an index that
+        keeps itself up to date. You never copy a file again.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" data-store-link href="https://github.com/Deveshsamant/LeetSync">Add to Chrome — free</a>
+        <a class="btn btn-ghost btn-lg" href="https://github.com/Deveshsamant/LeetSync">View source</a>
+      </div>
+      <ul class="hero-points">
+        <li>Works with fine-grained tokens — <strong>Contents: write</strong>, nothing more</li>
+        <li>Your token never leaves Chrome storage</li>
+        <li>Usage reporting is off unless you turn it on</li>
+      </ul>
+    </div>
+
+    <div class="hero-shot">
+      <div class="shot-frame">
+        <img data-shot="popup-dashboard" src="img/popup-dashboard-dark.png"
+             alt="LeetSync popup showing sync status, solved count, streak and activity"
+             width="840" height="1200" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Numbers ── -->
+  <section class="strip">
+    <div class="strip-item"><strong>7</strong><span>study sheets built in</span></div>
+    <div class="strip-item"><strong>895</strong><span>problems tracked</span></div>
+    <div class="strip-item"><strong>25+</strong><span>languages mapped</span></div>
+    <div class="strip-item"><strong>0</strong><span>manual commits</span></div>
+  </section>
+
+  <!-- ── Features ── -->
+  <section class="section" id="features">
+    <div class="section-head">
+      <span class="kicker">What it does</span>
+      <h2>Everything happens on submit</h2>
+      <p class="section-lede">
+        You solve on LeetCode as usual. The moment a submission is accepted,
+        LeetSync does the rest.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature">
+        <div class="feature-mark">01</div>
+        <h3>Automatic pushes</h3>
+        <p>Accepted solutions land in your repo in seconds, filed by problem
+          number, with the language extension you actually used. Re-submitting
+          adds <code>sol2</code> rather than overwriting your first attempt.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-mark">02</div>
+        <h3>A README that writes itself</h3>
+        <p>Difficulty badges against LeetCode's real totals, a rolling-year
+          solve calendar, language mix, and an index that collapses into
+          per-difficulty sections once it outgrows a flat table.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-mark">03</div>
+        <h3>Seven study sheets</h3>
+        <p>Striver A2Z, SDE, 79 and Blind 75, Love Babbar 450, NeetCode 150 and
+          250 — 895 problems after de-duplication. Solving one ticks it
+          everywhere it appears.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-mark">04</div>
+        <h3>Knows what you struggled with</h3>
+        <p>Every verdict is recorded, not just the accepted one. Filter for
+          problems that took several attempts, or ones you have not revisited
+          in a month, and see which topics you are weakest at.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-mark">05</div>
+        <h3>Streaks and achievements</h3>
+        <p>A solve calendar, a current and best streak, and achievements that
+          unlock as you go. Enough to keep the habit without turning practice
+          into a slot machine.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-mark">06</div>
+        <h3>Survives a bad connection</h3>
+        <p>Pushes that fail are queued and retried, not lost. Auth problems and
+          rate limits are recovered the same way, and the popup tells you what
+          is waiting.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── Screens ── -->
+  <section class="section alt" id="screens">
+    <div class="section-head">
+      <span class="kicker">Every screen</span>
+      <h2>Two themes, no compromise</h2>
+      <p class="section-lede">
+        Real screenshots, not mockups. Use the switch to see the whole
+        extension in <strong>Signal</strong> or <strong>Modernist</strong> —
+        the same toggle changes this page too.
+      </p>
+    </div>
+
+    <div class="tabs" id="shotTabs" role="tablist" aria-label="Extension screens">
+      <button role="tab" aria-selected="true" data-shot-tab="dashboard">Dashboard</button>
+      <button role="tab" aria-selected="false" data-shot-tab="problems">Solved</button>
+      <button role="tab" aria-selected="false" data-shot-tab="sheets">Sheets</button>
+      <button role="tab" aria-selected="false" data-shot-tab="battle">Battle</button>
+      <button role="tab" aria-selected="false" data-shot-tab="settings">Settings</button>
+    </div>
+
+    <div class="shot-stage">
+      <div class="shot-frame big">
+        <img id="tabShot" data-shot="popup-dashboard" src="img/popup-dashboard-dark.png"
+             alt="LeetSync popup" width="840" height="1200" loading="lazy">
+      </div>
+      <div class="shot-note" id="shotNote"></div>
+    </div>
+  </section>
+
+  <!-- ── Tracker ── -->
+  <section class="section" id="tracker">
+    <div class="section-head">
+      <span class="kicker">Full-page tracker</span>
+      <h2>All 895 problems, one page</h2>
+      <p class="section-lede">
+        Search, filter by sheet or difficulty, tick by hand, and watch
+        auto-tracked problems fill in as you solve them.
+      </p>
+    </div>
+    <div class="shot-frame wide">
+      <img data-shot="tracker" src="img/tracker-dark.png"
+           alt="LeetSync study tracker showing all sheets, progress and a filterable problem list"
+           width="2560" height="1800" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ── README ── -->
+  <section class="section alt" id="readme">
+    <div class="readme-split">
+      <div>
+        <span class="kicker">Your repository</span>
+        <h2>A repo worth linking to</h2>
+        <p class="section-lede">
+          Every push refreshes the index, the stat panels and the solve
+          calendar, in light and dark so GitHub picks whichever the reader is
+          using. Each problem gets its own page with the description, your
+          attempts, your notes and every solution you have written for it.
+        </p>
+        <ul class="check-list">
+          <li>Difficulty badges against LeetCode's real totals</li>
+          <li>Rolling-year solve calendar</li>
+          <li>Attempt history and verdict trail per problem</li>
+          <li>Your own notes, saved from the extension</li>
+          <li>Personal bests for runtime and memory</li>
+        </ul>
+      </div>
+      <pre class="code-card"><code># LeetCode Solutions
+
+<span class="c-dim">Automatically synced with every accepted submission</span>
+
+<span class="c-ac">[TOTAL SOLVED 60/3616]</span> <span class="c-ok">[EASY 21/895]</span> <span class="c-warn">[MEDIUM 16/1878]</span> <span class="c-bad">[HARD 23/843]</span>
+
+<span class="c-dim">&lt;!-- stats + solve calendar, light and dark --&gt;</span>
+
+<span class="c-dim">---</span>
+
+### ALL SOLUTIONS
+
+**Latest 10**
+
+| # | Problem | Difficulty | Language | Date |
+|:-:|:--------|:----------:|:--------:|:----:|
+| 42 | Trapping Rain Water | Hard | `cpp` | 2026-09-03 |
+| 1  | Two Sum | Easy | `python3` | 2026-09-02 |
+
+<span class="c-dim">&lt;details&gt;</span>
+<span class="c-dim">&lt;summary&gt;</span><strong>Easy</strong> — 21 solved<span class="c-dim">&lt;/summary&gt;</span>
+<span class="c-dim">&lt;/details&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <!-- ── Privacy ── -->
+  <section class="section" id="privacy">
+    <div class="section-head">
+      <span class="kicker">Privacy</span>
+      <h2>Off by default, and it means it</h2>
+    </div>
+    <div class="privacy-grid">
+      <div class="privacy-card good">
+        <h3>Stays on your device</h3>
+        <ul>
+          <li>Your GitHub token, in Chrome storage</li>
+          <li>Your repository name</li>
+          <li>Solved problems, streaks, achievements</li>
+          <li>Sheet progress and your notes</li>
+        </ul>
+      </div>
+      <div class="privacy-card">
+        <h3>Sent only if you opt in</h3>
+        <ul>
+          <li>A random install ID and the version</li>
+          <li>Which features you use</li>
+          <li>Submission verdicts, language, runtime</li>
+          <li>Solution code — a <em>separate</em> switch, off even when reporting is on</li>
+        </ul>
+      </div>
+      <div class="privacy-card bad">
+        <h3>Never collected</h3>
+        <ul>
+          <li>Your token, repo name or GitHub username</li>
+          <li>Your IP address — there is no column for it</li>
+          <li>Error text, which can contain repo paths</li>
+          <li>Browsing history or any ad identifier</li>
+        </ul>
+      </div>
+    </div>
+    <p class="privacy-foot">
+      Switching reporting off deletes the queue and stops everything.
+      <a href="https://github.com/Deveshsamant/LeetSync/blob/main/PRIVACY_POLICY.md">Read the full policy →</a>
+    </p>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="final">
+    <h2>Stop copying files.</h2>
+    <p>Connect GitHub once. Everything after that is automatic.</p>
+    <div class="cta-row center">
+      <a class="btn btn-primary btn-lg" data-store-link href="https://github.com/Deveshsamant/LeetSync">Add to Chrome — free</a>
+      <a class="btn btn-ghost btn-lg" href="https://github.com/Deveshsamant/LeetSync">Read the source</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-brand">
+    <img src="img/logo.png" alt="" width="26" height="26">
+    <span>LeetSync</span>
+  </div>
+  <nav class="foot-links">
+    <a href="https://github.com/Deveshsamant/LeetSync">GitHub</a>
+    <a href="https://github.com/Deveshsamant/LeetSync/blob/main/PRIVACY_POLICY.md">Privacy</a>
+    <a href="https://github.com/Deveshsamant/LeetSync/issues">Report an issue</a>
+    <a href="https://deveshsamant.in">deveshsamant.in</a>
+  </nav>
+  <div class="foot-note">Built by Devesh Samant · Not affiliated with LeetCode</div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
