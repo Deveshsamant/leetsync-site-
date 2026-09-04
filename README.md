@@ -1,29 +1,53 @@
 # LeetSync marketing site
 
 Static landing page for the [LeetSync](https://github.com/Deveshsamant/LeetSync)
-Chrome extension. No build step, no dependencies — three files and a folder of
-screenshots.
+Chrome extension. Three files and a folder of screenshots — no build step, no
+dependencies.
 
-## The theme switch is the pitch
+Ported from the Claude Design project **LeetSync Site**.
 
-The extension ships two themes, so the page ships both too. The switch in the
-header changes the page **and** every screenshot on it, because each `<img>`
-carries a `data-shot` base name and the theme decides the suffix:
+## How it is put together
 
-```
-img/popup-sheets-dark.png     Signal
-img/popup-sheets-light.png    Modernist
-```
+The palette lives as CSS custom properties on the root element and JS swaps
+the whole set at once, rather than shipping a second stylesheet. That is what
+lets one toggle restyle the page *and* repoint every screenshot on it.
 
-Adding a screen means adding two files and one tab button — no per-image
-bookkeeping to fall out of sync. With no stored preference the page follows
-`prefers-color-scheme`, since the two themes map onto exactly that.
+`site.css` therefore holds only what an inline style cannot express: the
+reset, the keyframes, and the hover rules the design wrote as `style-hover`
+attributes. Everything else is inline, exactly as the design authored it.
+
+## The moving parts
+
+| Behaviour | Driven by |
+| --- | --- |
+| Scroll progress bar, section rail, nav shrink | one `requestAnimationFrame` loop |
+| Hero grid parallax, cursor spotlight, card tilt | pointer position, same loop |
+| **How it works** — 300vh pinned, line and token track scroll | `data-pin-flow` |
+| **Screens** — 520vh pinned, scroll position picks the tab | `data-pin-screens` |
+| Tracker rising into place | scroll-mapped `rotateX` + `scale` |
+| Counters, flip/scale/slide reveals, typed README | `IntersectionObserver` |
+
+Breakpoints are applied from JS rather than media queries, because the pinned
+stage has to be sized against the *viewport height* — something a media query
+cannot express.
+
+Everything respects `prefers-reduced-motion`: reveals resolve immediately, the
+marquee stops, and tilt is not bound at all.
 
 ## The screenshots are real
 
 Every image is the actual extension, captured from `preview-popup.html` and
 `preview-tracker.html` — the real popup and tracker running against a stubbed
 `chrome` API. Nothing is a mockup.
+
+Each `<img>` carries a `data-shot` base name and the theme decides the suffix:
+
+```
+img/popup-sheets-dark.png     Signal
+img/popup-sheets-light.png    Modernist
+```
+
+Adding a screen is two files and one tab button — no mapping to keep in sync.
 
 To retake them after a UI change:
 
@@ -32,18 +56,19 @@ To retake them after a UI change:
 cd ../LeetSync-main && node scripts/make-preview.mjs
 
 # 2. serve the extension folder on :8123, then capture
-bash scripts/capture-screens.sh
+bash ../leetsync-site/scripts/capture-screens.sh
 ```
 
-The previews accept `?theme=signal|light` and `?tab=dashboard|problems|sheets|battle|settings`,
-and set `data-preview-ready` on `<html>` once painted, so the capture waits for
-the real thing rather than a fixed delay.
+The previews accept `?theme=signal|light` and
+`?tab=dashboard|problems|sheets|battle|settings`, and set `data-preview-ready`
+on `<html>` once painted, so the capture waits for the real thing rather than
+a fixed delay.
 
 ## Before deploying
 
 `STORE_URL` at the top of `site.js` is **empty**. Every "Add to Chrome" button
-falls back to the GitHub repo until it is filled in — wrong, but honest, rather
-than a guessed listing URL that 404s. Set it and every button updates.
+falls back to the GitHub repo until it is filled in — wrong, but honest,
+rather than a guessed listing URL that 404s. Set it and every button updates.
 
 ## Deploy
 
