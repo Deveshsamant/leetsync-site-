@@ -72,11 +72,13 @@ const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'sheets', 're
 /**
  * The Chrome Web Store listing.
  *
- * Left empty on purpose rather than guessed — every "Add to Chrome" button
- * falls back to the repository until this is filled in, which is wrong but
- * honest. Set it and the buttons point at the listing.
+ * Every element marked data-store-link points here. The utm_source the store's
+ * share button appends is deliberately omitted: it would tag ordinary site
+ * traffic as share-link clicks and skew the referrer breakdown.
+ *
+ * Set to '' and the buttons fall back to whatever href the markup carries.
  */
-const STORE_URL = '';
+const STORE_URL = 'https://chromewebstore.google.com/detail/neghhaodkpiafoalaeldhbnboncnalec';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 const ease = (t) => t * t * (3 - 2 * t);

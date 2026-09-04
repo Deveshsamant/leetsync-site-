@@ -109,11 +109,12 @@ place. Set `period` by hand to the range the dashboard was showing.
 Editing the JSON directly is fine too. If the file is missing or malformed the
 section hides itself rather than showing a broken claim.
 
-## Before deploying
+## The store link
 
-`STORE_URL` at the top of `site.js` is **empty**. Every "Add to Chrome" button
-falls back to the GitHub repo until it is filled in — wrong, but honest,
-rather than a guessed listing URL that 404s. Set it and every button updates.
+`STORE_URL` at the top of `site.js` feeds every element marked
+`data-store-link` — the three "Add to Chrome" buttons. The `utm_source` the
+store's share button appends is deliberately left off: it would tag ordinary
+site traffic as share-link clicks and skew the referrer breakdown.
 
 ## Deploy
 
