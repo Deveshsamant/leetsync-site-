@@ -1,5 +1,7 @@
 # LeetSync marketing site
 
+**Live at [leetsync-site.vercel.app](https://leetsync-site.vercel.app/)**
+
 Static landing page for the [LeetSync](https://github.com/Deveshsamant/LeetSync)
 Chrome extension. Three files and a folder of screenshots — no build step, no
 dependencies.
