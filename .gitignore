@@ -1,3 +1,8 @@
 node_modules/
 .vercel
 .DS_Store
+
+# Intermediates from scripts/capture-readme.sh
+.readme.md
+.readme-*.html
+.stats-*.svg

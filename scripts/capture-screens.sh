@@ -5,7 +5,9 @@ set -u
 
 CHROME="/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 BASE="http://localhost:8123"
-OUT="$(cd "$(dirname "$0")/.." && pwd)/img"
+# pwd -W gives a Windows path (E:/...). Plain pwd gives /e/..., which Chrome
+# resolves against the current drive as E:\e\... and silently writes nothing.
+OUT="$(cd "$(dirname "$0")/.." && { pwd -W 2>/dev/null || pwd; })/img"
 PROFILE="$(mktemp -d)"
 
 shot() {   # shot <url> <file> <w> <h>

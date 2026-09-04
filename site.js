@@ -187,7 +187,7 @@ root.addEventListener('keydown', (e) => {
 
 /** The hero screenshot and the pinned stage lean towards the cursor. */
 function tiltAll(e) {
-  ['[data-tilt]', '[data-shot-stage]'].forEach((sel) => {
+  ['[data-tilt]', '[data-shot-stage]', '[data-readme-shot]'].forEach((sel) => {
     const el = q(sel);
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -265,16 +265,6 @@ function countUp(el, delay) {
   }, delay + 120);
 }
 
-/** Wipe the README in line by line, then land the caret. */
-function typeCode(delay) {
-  const lines = qa('[data-code-line]');
-  const caret = q('[data-caret]');
-  lines.forEach((l, i) => {
-    setTimeout(() => { l.style.clipPath = 'inset(0 0 0 0)'; }, delay + i * 78);
-  });
-  if (caret) setTimeout(() => { caret.style.opacity = '1'; }, delay + lines.length * 78);
-}
-
 function setupReveals() {
   if (reduceMotion || !('IntersectionObserver' in window)) return;
 
@@ -289,13 +279,6 @@ function setupReveals() {
   requestAnimationFrame(() => requestAnimationFrame(() => {
     heroEls.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; });
   }));
-
-  qa('[data-code-line]').forEach((l) => {
-    l.style.clipPath = 'inset(0 100% 0 0)';
-    l.style.transition = 'clip-path .26s linear';
-  });
-  const caret = q('[data-caret]');
-  if (caret) caret.style.opacity = '0';
 
   const els = qa('[data-reveal]');
   els.forEach((el) => {
@@ -318,7 +301,6 @@ function setupReveals() {
       const d = parseInt(el.dataset.revealDelay || '0', 10);
       setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
       if (el.dataset.count) countUp(el, d);
-      if (el.dataset.reveal === 'scale' && el.querySelector('[data-code-card]')) typeCode(d + 260);
       io.unobserve(el);
     });
   }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });

@@ -34,6 +34,23 @@ cannot express.
 Everything respects `prefers-reduced-motion`: reveals resolve immediately, the
 marquee stops, and tilt is not bound at all.
 
+## The README shot is the live one
+
+The "A repo worth linking to" section shows the actual
+[leetcode-solutions](https://github.com/Deveshsamant/leetcode-solutions) README
+— its content fetched from the repo, its stat panel the real generated SVG,
+inlined. The only thing supplied locally is GitHub's own chrome: the palette,
+the table rules and the markdown-body metrics, so the shot looks like the page
+a visitor actually lands on.
+
+```bash
+bash scripts/capture-readme.sh                 # defaults to the repo above
+bash scripts/capture-readme.sh owner/other     # or any public repo
+```
+
+It fetches, renders light and dark, captures both, and deletes its
+intermediates.
+
 ## The screenshots are real
 
 Every image is the actual extension, captured from `preview-popup.html` and
