@@ -29,14 +29,14 @@ mkdir -p "$OUT"
 echo "Popup — 420x600, 2x"
 for theme in dark light; do
   for tab in dashboard problems sheets battle settings; do
-    shot "$BASE/preview-popup.html?theme=$theme&tab=$tab" \
+    shot "$BASE/preview-popup.html?capture=1&theme=$theme&tab=$tab" \
          "popup-$tab-$theme.png" 420 600
   done
 done
 
 echo "Tracker — 1280x900, 2x"
 for theme in dark light; do
-  shot "$BASE/preview-tracker.html?theme=$theme" "tracker-$theme.png" 1280 900
+  shot "$BASE/preview-tracker.html?capture=1&theme=$theme" "tracker-$theme.png" 1280 900
 done
 
 rm -rf "$PROFILE"

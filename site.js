@@ -67,7 +67,7 @@ const NOTES = {
   battle: 'Battle — compare progress with friends by GitHub username',
   settings: 'Settings — repository, themes, data export and usage reporting',
 };
-const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'readme', 'privacy'];
+const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
 
 /**
  * The Chrome Web Store listing.
