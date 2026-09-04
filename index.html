@@ -47,6 +47,10 @@
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Features</span>
     </a>
+    <a data-rail-dot href="#whatsnew" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
+      <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
+      <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">New</span>
+    </a>
     <a data-rail-dot href="#flow" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Flow</span>
@@ -67,13 +71,13 @@
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Readme</span>
     </a>
-    <a data-rail-dot href="#usage" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
-      <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
-      <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Usage</span>
-    </a>
     <a data-rail-dot href="#privacy" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Privacy</span>
+    </a>
+    <a data-rail-dot href="#usage" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
+      <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
+      <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Usage</span>
     </a>
   </div>
 
@@ -84,6 +88,7 @@
     </a>
     <nav data-navlinks style="display:flex;gap:24px">
       <a data-navlink href="#features" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">Features</a>
+      <a data-navlink href="#whatsnew" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">What's new</a>
       <a data-navlink href="#flow" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">How it works</a>
       <a data-navlink href="#screens" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">Screens</a>
       <a data-navlink href="#sheets" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">Sheets</a>
@@ -260,6 +265,42 @@
             rate limits are recovered the same way, and the popup tells you what
             is waiting.</p>
         </article>
+      </div>
+    </section>
+
+    <!-- Release notes, imported from the extension's own remote-config.json by
+         scripts/import-changelog.mjs. Hidden until the fetch succeeds, so a
+         missing file leaves no empty band. -->
+    <section id="whatsnew" data-changelog hidden style="background:var(--band);border-top:var(--bw) solid var(--bd-soft);border-bottom:var(--bw) solid var(--bd-soft);padding:clamp(56px,9vw,110px) clamp(16px,4vw,44px);transition:background .45s">
+      <div style="max-width:1280px;margin:0 auto">
+        <div style="max-width:62ch;margin-bottom:clamp(32px,5vw,56px)">
+          <span data-reveal="up" style="display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--kick-c);font-weight:var(--kick-w);margin-bottom:14px">Release <span data-changelog-version>2.0</span></span>
+          <h2 data-reveal="up" data-reveal-delay="60" style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0;line-height:1.05;font-size:clamp(30px,4.2vw,46px)">What changed</h2>
+          <p data-reveal="up" data-reveal-delay="120" style="color:var(--tx3);font-size:16.5px;margin:16px 0 0;text-wrap:pretty">
+            The same notes the extension shows you after it updates &mdash; written
+            once, so the two can never disagree.
+          </p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;align-items:start">
+          <article data-reveal="up" data-magnet style="position:relative;isolation:isolate;overflow:hidden;padding:26px 26px 30px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh);transition:opacity .7s,transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s,background .45s">
+            <span data-sweep style="position:absolute;left:0;top:0;height:3px;width:0;background:var(--ac);transition:width .55s cubic-bezier(.2,.7,.2,1)"></span>
+            <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border:var(--bw) solid var(--ac-bd);border-radius:var(--r-sm);font-family:var(--f-mono);font-size:13px;color:var(--ac);transition:color .45s,border-color .45s,border-radius .4s">+</span>
+              <span style="font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx4)">New</span>
+            </div>
+            <ul data-changelog-added style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px"></ul>
+          </article>
+
+          <article data-reveal="up" data-reveal-delay="80" data-magnet style="position:relative;isolation:isolate;overflow:hidden;padding:26px 26px 30px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh);transition:opacity .7s,transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s,background .45s">
+            <span data-sweep style="position:absolute;left:0;top:0;height:3px;width:0;background:var(--ac);transition:width .55s cubic-bezier(.2,.7,.2,1)"></span>
+            <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border:var(--bw) solid var(--ac-bd);border-radius:var(--r-sm);font-family:var(--f-mono);font-size:13px;color:var(--ac);transition:color .45s,border-color .45s,border-radius .4s">&#10003;</span>
+              <span style="font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx4)">Fixed</span>
+            </div>
+            <ul data-changelog-fixed style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px"></ul>
+          </article>
+        </div>
       </div>
     </section>
 

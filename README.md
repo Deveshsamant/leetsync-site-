@@ -88,6 +88,23 @@ The previews accept `?theme=signal|light` and
 on `<html>` once painted, so the capture waits for the real thing rather than
 a fixed delay.
 
+## Release notes
+
+The **What changed** section reads `data/changelog.json`, imported from the
+extension's own `remote-config.json` — the same notes that drive the What's New
+modal in the popup. Writing them once means the site cannot describe a release
+differently from the extension announcing it.
+
+```bash
+node scripts/import-changelog.mjs                 # defaults to ../LeetSync-main
+node scripts/import-changelog.mjs path/to/LeetSync
+```
+
+It takes the notes for the version in `manifest.json` rather than
+`latestVersion`, because those disagree while a release is being prepared, and
+splits `Fixed:` lines into their own column. If the file is missing or has no
+notes the section hides itself.
+
 ## Chrome Web Store figures
 
 The "Real usage" section reads `data/store-stats.json`. Those numbers **cannot

@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-09-04T17:13:41.022Z",
+  "added": [
+    "Every submission is now recorded, not just the accepted ones — filter Solved by what took you several tries, or what you have not revisited",
+    "Write notes on any problem; they go into that problem's page in your repo",
+    "Pick a username when you connect GitHub, unique across LeetSync",
+    "README index collapses into per-difficulty sections once it outgrows a flat table, so a large repo stays readable",
+    "README gains a rolling-year solve calendar, and difficulty badges now show progress against LeetCode's real totals",
+    "Usage reporting is asked once during setup instead of hiding in Settings, and still starts off",
+    "Sharing your solution code is a separate switch that stays off even when reporting is on"
+  ],
+  "fixed": [
+    "the weekly challenge bar showed a number next to an empty bar",
+    "runtime and memory were always blank on synced solutions",
+    "release notes could silently fail to appear after an update"
+  ]
+}

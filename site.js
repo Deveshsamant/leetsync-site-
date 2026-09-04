@@ -67,7 +67,7 @@ const NOTES = {
   battle: 'Battle — compare progress with friends by GitHub username',
   settings: 'Settings — repository, themes, data export and usage reporting',
 };
-const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy', 'usage'];
+const RAIL_IDS = ['top', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy', 'usage'];
 
 /**
  * The Chrome Web Store listing.
@@ -490,6 +490,55 @@ function tick(now) {
  * is refreshed by scripts/import-store-csv.mjs. If it is missing or malformed
  * the section stays hidden rather than showing a broken claim.
  */
+/**
+ * Release notes, written by scripts/import-changelog.mjs from the extension's
+ * remote-config.json. Same reasoning as the usage figures: a missing or empty
+ * file leaves the section hidden rather than announcing a release with nothing
+ * to say.
+ */
+async function loadChangelog() {
+  const section = q('[data-changelog]');
+  if (!section) return;
+
+  let d;
+  try {
+    const res = await fetch('data/changelog.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    d = await res.json();
+  } catch {
+    return;
+  }
+  const added = Array.isArray(d && d.added) ? d.added : [];
+  const fixed = Array.isArray(d && d.fixed) ? d.fixed : [];
+  if (!added.length && !fixed.length) return;
+
+  const label = q('[data-changelog-version]');
+  // "2.0.0" is a package version; the page is talking about a release.
+  if (label && d.version) label.textContent = String(d.version).replace(/\.0$/, '');
+
+  const fill = (sel, items) => {
+    const host = q(sel);
+    if (!host) return;
+    const card = host.closest('article');
+    if (!items.length) { if (card) card.hidden = true; return; }
+    host.innerHTML = '';
+    for (const item of items) {
+      const li = document.createElement('li');
+      li.style.cssText = 'display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px;align-items:start;color:var(--tx3);font-size:14.5px;line-height:1.5;text-wrap:pretty';
+      const dot = document.createElement('span');
+      dot.style.cssText = 'width:5px;height:5px;margin-top:8px;border-radius:var(--r-sm);background:var(--ac);flex:none;transition:background .45s,border-radius .4s';
+      const text = document.createElement('span');
+      text.textContent = item;             // notes are plain text, never markup
+      li.append(dot, text);
+      host.appendChild(li);
+    }
+  };
+  fill('[data-changelog-added]', added);
+  fill('[data-changelog-fixed]', fixed);
+
+  section.hidden = false;
+}
+
 async function loadUsage() {
   const section = q('[data-usage]');
   if (!section) return;
@@ -568,6 +617,7 @@ try { stored = localStorage.getItem('leetsync.siteTheme'); } catch { /* private 
 // tokens too, so first paint already matches and there is nothing to flash.
 setTheme(stored || 'modernist', true);
 
+loadChangelog();
 loadUsage();
 setupReveals();
 applyResponsive();
