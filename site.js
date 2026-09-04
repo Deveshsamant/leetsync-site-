@@ -67,7 +67,7 @@ const NOTES = {
   battle: 'Battle — compare progress with friends by GitHub username',
   settings: 'Settings — repository, themes, data export and usage reporting',
 };
-const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
+const RAIL_IDS = ['top', 'features', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy', 'usage'];
 
 /**
  * The Chrome Web Store listing.
@@ -477,6 +477,86 @@ function tick(now) {
   }
 }
 
+
+// ── Store figures ────────────────────────────────────────────
+
+/**
+ * Chrome Web Store numbers, from data/store-stats.json.
+ *
+ * They cannot be fetched live: the Web Store API covers publishing only, so
+ * install counts exist purely in the dashboard and its CSV exports. The file
+ * is refreshed by scripts/import-store-csv.mjs. If it is missing or malformed
+ * the section stays hidden rather than showing a broken claim.
+ */
+async function loadUsage() {
+  const section = q('[data-usage]');
+  if (!section) return;
+
+  let d;
+  try {
+    const res = await fetch('data/store-stats.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    d = await res.json();
+  } catch {
+    return;                              // no figures, no section
+  }
+  if (!d || typeof d.installs !== 'number' || d.installs <= 0) return;
+
+  const uninstalls = typeof d.uninstalls === 'number' ? d.uninstalls : 0;
+  const active = Math.max(0, d.installs - uninstalls);
+
+  const set = (sel, text) => { const el = q(sel); if (el) el.textContent = text; };
+  set('[data-usage-installs]', d.installs.toLocaleString());
+  set('[data-usage-active]', active.toLocaleString());
+  set('[data-usage-kept]', Math.round((active / d.installs) * 100) + '%');
+  set('[data-usage-countries]', String((d.regions || []).length || '—'));
+
+  const period = q('[data-usage-period]');
+  if (period && d.period && d.period.from && d.period.to) {
+    const fmt = (iso) => {
+      const [y, m, day] = iso.split('-').map(Number);
+      return new Date(Date.UTC(y, m - 1, day))
+        .toLocaleDateString(undefined, { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+    };
+    period.textContent = `${fmt(d.period.from)} to ${fmt(d.period.to)}`;
+  } else if (period) {
+    period.textContent = 'to date';
+  }
+
+  const bars = (sel, rows) => {
+    const host = q(sel);
+    if (!host || !rows) return;
+    host.innerHTML = '';
+    const top = Math.max(1, ...rows.map((r) => r.share));
+    for (const row of rows) {
+      const line = document.createElement('div');
+      line.style.cssText = 'display:grid;grid-template-columns:minmax(84px,120px) minmax(0,1fr) 44px;align-items:center;gap:12px';
+
+      const name = document.createElement('span');
+      name.style.cssText = 'font-size:13.5px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+      name.textContent = row.name;
+      name.title = row.name;
+
+      const track = document.createElement('span');
+      track.style.cssText = 'display:block;height:9px;background:var(--hover);border-radius:calc(var(--r-sm) / 2);overflow:hidden;transition:background .45s';
+      const fill = document.createElement('span');
+      fill.style.cssText = `display:block;height:100%;width:${(row.share / top) * 100}%;background:var(--ac);transition:background .45s`;
+      track.appendChild(fill);
+
+      const val = document.createElement('span');
+      val.style.cssText = 'font-family:var(--f-mono);font-size:12px;color:var(--tx3);text-align:right';
+      val.textContent = row.share + '%';
+
+      line.append(name, track, val);
+      host.appendChild(line);
+    }
+  };
+  bars('[data-usage-regions]', d.regions);
+  bars('[data-usage-platforms]', d.platforms);
+
+  section.hidden = false;
+}
+
 // ── Boot ─────────────────────────────────────────────────────
 
 let stored = null;
@@ -486,6 +566,7 @@ try { stored = localStorage.getItem('leetsync.siteTheme'); } catch { /* private 
 const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
 setTheme(stored || (prefersLight ? 'modernist' : 'signal'), true);
 
+loadUsage();
 setupReveals();
 applyResponsive();
 requestAnimationFrame(tick);

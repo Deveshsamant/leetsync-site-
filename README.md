@@ -83,6 +83,27 @@ The previews accept `?theme=signal|light` and
 on `<html>` once painted, so the capture waits for the real thing rather than
 a fixed delay.
 
+## Chrome Web Store figures
+
+The "Real usage" section reads `data/store-stats.json`. Those numbers **cannot
+be fetched live** — the Chrome Web Store API covers publishing only (upload,
+update, publish), so install counts and the region/OS breakdowns exist purely
+in the dashboard UI and its *Export to CSV* buttons.
+
+To refresh them: Dashboard → your item → **Stats**, hit *Export to CSV* on the
+panels you want, drop the files in a folder, then
+
+```bash
+node scripts/import-store-csv.mjs ./csv
+```
+
+It matches files by name (`install`, `uninstall`, `region`, `os`), reports
+anything it cannot parse instead of guessing, and leaves the previous value in
+place. Set `period` by hand to the range the dashboard was showing.
+
+Editing the JSON directly is fine too. If the file is missing or malformed the
+section hides itself rather than showing a broken claim.
+
 ## Before deploying
 
 `STORE_URL` at the top of `site.js` is **empty**. Every "Add to Chrome" button

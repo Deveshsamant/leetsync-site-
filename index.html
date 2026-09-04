@@ -67,6 +67,10 @@
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Readme</span>
     </a>
+    <a data-rail-dot href="#usage" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
+      <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
+      <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Usage</span>
+    </a>
     <a data-rail-dot href="#privacy" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Privacy</span>
@@ -550,6 +554,52 @@
         Switching reporting off deletes the queue and stops everything.
         <a data-policy-link href="https://github.com/Deveshsamant/LeetSync/blob/main/PRIVACY_POLICY.md" style="color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac-bd)">Read the full policy →</a>
       </p>
+    </section>
+
+    <!-- Hidden until the figures load, so a failed fetch shows nothing rather
+         than empty scaffolding. -->
+    <section id="usage" data-usage hidden style="background:var(--band);padding:clamp(56px,9vw,110px) clamp(16px,4vw,44px);border-top:var(--bw) solid var(--bd-soft);transition:background .45s">
+      <div style="max-width:1280px;margin:0 auto">
+        <div style="max-width:62ch;margin-bottom:clamp(32px,5vw,56px)">
+          <span data-reveal="up" style="display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--kick-c);font-weight:var(--kick-w);margin-bottom:14px">Real usage</span>
+          <h2 data-reveal="up" data-reveal-delay="60" style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0;line-height:1.05;font-size:clamp(30px,4.2vw,46px)">People are actually using it</h2>
+          <p data-reveal="up" data-reveal-delay="120" style="color:var(--tx3);font-size:16.5px;margin:16px 0 0;text-wrap:pretty">
+            Straight from the Chrome Web Store dashboard, <span data-usage-period></span>. Not projections, not a waitlist.
+          </p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;margin-bottom:clamp(28px,4vw,44px)">
+          <div data-reveal="up" style="padding:24px 22px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh)">
+            <strong data-usage-installs style="display:block;font-family:var(--f-head);font-weight:var(--head-w);font-size:38px;line-height:1;letter-spacing:-.02em;color:var(--ac);transition:color .45s">—</strong>
+            <span style="display:block;margin-top:9px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx4)">installs</span>
+          </div>
+          <div data-reveal="up" data-reveal-delay="80" style="padding:24px 22px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh)">
+            <strong data-usage-active style="display:block;font-family:var(--f-head);font-weight:var(--head-w);font-size:38px;line-height:1;letter-spacing:-.02em;color:var(--ac);transition:color .45s">—</strong>
+            <span style="display:block;margin-top:9px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx4)">still installed</span>
+          </div>
+          <div data-reveal="up" data-reveal-delay="160" style="padding:24px 22px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh)">
+            <strong data-usage-kept style="display:block;font-family:var(--f-head);font-weight:var(--head-w);font-size:38px;line-height:1;letter-spacing:-.02em;color:var(--ac);transition:color .45s">—</strong>
+            <span style="display:block;margin-top:9px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx4)">kept it</span>
+          </div>
+          <div data-reveal="up" data-reveal-delay="240" style="padding:24px 22px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh)">
+            <strong data-usage-countries style="display:block;font-family:var(--f-head);font-weight:var(--head-w);font-size:38px;line-height:1;letter-spacing:-.02em;color:var(--ac);transition:color .45s">—</strong>
+            <span style="display:block;margin-top:9px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx4)">countries</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+          <section data-reveal="up" data-magnet style="position:relative;overflow:hidden;padding:26px 24px 28px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh);transition:opacity .7s,transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s,background .45s">
+            <span data-sweep style="position:absolute;left:0;top:0;height:3px;width:0;background:var(--ac);transition:width .55s cubic-bezier(.2,.7,.2,1)"></span>
+            <h3 style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0 0 18px;font-size:17px">Where they are</h3>
+            <div data-usage-regions style="display:flex;flex-direction:column;gap:12px"></div>
+          </section>
+          <section data-reveal="up" data-reveal-delay="100" data-magnet style="position:relative;overflow:hidden;padding:26px 24px 28px;background:var(--card);border:var(--bw) solid var(--bd);border-radius:var(--r-card);box-shadow:var(--card-sh);transition:opacity .7s,transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s,background .45s">
+            <span data-sweep style="position:absolute;left:0;top:0;height:3px;width:0;background:var(--ac);transition:width .55s cubic-bezier(.2,.7,.2,1)"></span>
+            <h3 style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0 0 18px;font-size:17px">What they run</h3>
+            <div data-usage-platforms style="display:flex;flex-direction:column;gap:12px"></div>
+          </section>
+        </div>
+      </div>
     </section>
 
     <section data-final style="position:relative;overflow:hidden;text-align:center;padding:clamp(64px,10vw,130px) clamp(16px,4vw,44px);border-top:var(--bw) solid var(--bd-soft)">

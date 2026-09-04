@@ -1,0 +1,17 @@
+{
+  "_comment": "Chrome Web Store figures. There is no API for these — the Web Store API covers publishing only — so they come from the dashboard's Export to CSV buttons via scripts/import-store-csv.mjs, or by editing this file. Update the period whenever you refresh them.",
+  "period": { "from": "2026-06-05", "to": "2026-09-02" },
+  "installs": 99,
+  "uninstalls": 17,
+  "regions": [
+    { "name": "United States", "share": 77 },
+    { "name": "India", "share": 22 },
+    { "name": "Japan", "share": 1 }
+  ],
+  "platforms": [
+    { "name": "ChromeOS", "share": 65 },
+    { "name": "Windows", "share": 29 },
+    { "name": "Linux", "share": 4 },
+    { "name": "Other", "share": 2 }
+  ]
+}
