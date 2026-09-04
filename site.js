@@ -89,7 +89,7 @@ const reduceMotion = window.matchMedia
   && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const state = {
-  theme: 'signal',
+  theme: 'modernist',
   tabIndex: 0,
   activeRail: -1,
   mx: 0,
@@ -127,7 +127,7 @@ function paintTabs() {
 }
 
 function setTheme(name, silent) {
-  const key = THEMES[name] ? name : 'signal';
+  const key = THEMES[name] ? name : 'modernist';
   const t = THEMES[key];
   state.theme = key;
   Object.keys(t.vars).forEach((k) => root.style.setProperty(k, t.vars[k]));
@@ -561,10 +561,10 @@ async function loadUsage() {
 
 let stored = null;
 try { stored = localStorage.getItem('leetsync.siteTheme'); } catch { /* private mode */ }
-// No stored choice: follow the reader's own light/dark preference, since the
-// two themes map onto exactly that.
-const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-setTheme(stored || (prefersLight ? 'modernist' : 'signal'), true);
+// Modernist is the default. A previous choice still wins, but a first-time
+// visitor gets it whatever their OS prefers — the markup is authored in these
+// tokens too, so first paint already matches and there is nothing to flash.
+setTheme(stored || 'modernist', true);
 
 loadUsage();
 setupReveals();

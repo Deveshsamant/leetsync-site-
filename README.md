@@ -18,6 +18,11 @@ lets one toggle restyle the page *and* repoint every screenshot on it.
 reset, the keyframes, and the hover rules the design wrote as `style-hover`
 attributes. Everything else is inline, exactly as the design authored it.
 
+**Modernist is the default.** A visitor's previous choice still wins, but a
+first-timer gets Modernist whatever their OS prefers. The markup is authored in
+Modernist tokens and `site.css` paints the same ground, so first paint already
+matches and there is nothing to flash before JS runs.
+
 ## The moving parts
 
 | Behaviour | Driven by |
@@ -27,7 +32,7 @@ attributes. Everything else is inline, exactly as the design authored it.
 | **How it works** — 300vh pinned, line and token track scroll | `data-pin-flow` |
 | **Screens** — 520vh pinned, scroll position picks the tab | `data-pin-screens` |
 | Tracker rising into place | scroll-mapped `rotateX` + `scale` |
-| Counters, flip/scale/slide reveals, typed README | `IntersectionObserver` |
+| Counters, flip/scale/slide reveals | `IntersectionObserver` |
 
 Breakpoints are applied from JS rather than media queries, because the pinned
 stage has to be sized against the *viewport height* — something a media query
