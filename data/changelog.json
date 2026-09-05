@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-09-05T06:55:32.274Z",
+  "generatedAt": "2026-09-05T18:21:10.790Z",
   "added": [
     "Every submission is now recorded, not just the accepted ones — filter Solved by what took you several tries, or what you have not revisited",
     "Write notes on any problem; they go into that problem's page in your repo",
@@ -11,7 +11,8 @@
     "Sharing your solution code is a separate switch that stays off even when reporting is on",
     "An activity ping, on by default and with its own switch: a random ID and the version, twice a day at most, so a dormant install is not mistaken for one that declined reporting — nothing else is sent",
     "Use LeetSync on two computers: sign in with the same token and repo and your solved problems, streak, achievements and sheet ticks merge through your own repository — and there is now a Sign out button",
-    "A public leaderboard in the Battle tab — all time, this week and today, plus your own position. Hard 10, Medium 5, Easy 3, counted once per problem. Turn on usage reporting to be ranked"
+    "A public leaderboard in the Battle tab — all time, this week and today, plus your own position. Hard 10, Medium 5, Easy 3, counted once per problem. Turn on usage reporting to be ranked",
+    "Send feedback, an issue or a suggestion from Settings — and get an answer back inside the extension, quoting what you wrote"
   ],
   "fixed": [
     "the weekly challenge bar showed a number next to an empty bar",

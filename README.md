@@ -30,7 +30,7 @@ matches and there is nothing to flash before JS runs.
 | Scroll progress bar, section rail, nav shrink | one `requestAnimationFrame` loop |
 | Hero grid parallax, cursor spotlight, card tilt | pointer position, same loop |
 | **How it works** — 300vh pinned, line and token track scroll | `data-pin-flow` |
-| **Screens** — 520vh pinned, scroll position picks the tab | `data-pin-screens` |
+| **Screens** — a tab per extension screen, clicked | `data-screen-btn` / `data-screen-panel` |
 | Tracker rising into place | scroll-mapped `rotateX` + `scale` |
 | Counters, flip/scale/slide reveals | `IntersectionObserver` |
 
@@ -58,11 +58,25 @@ bash scripts/capture-readme.sh owner/other     # or any public repo
 It fetches, renders light and dark, captures both, and deletes its
 intermediates.
 
-## The screenshots are real
+## The screenshots are real, and whole
 
 Every image is the actual extension, captured from `preview-popup.html` and
 `preview-tracker.html` — the real popup and tracker running against a stubbed
 `chrome` API. Nothing is a mockup.
+
+They are also **entire screens rather than the top of one**. The popup is
+420×600 with each tab scrolling inside it, so a plain capture shows a third of
+Settings and calls it a screenshot. `?full=1` lifts that fixed height in the
+preview, the capture window is made deliberately over-tall, and
+`scripts/trim-shots.py` cuts the surplus back off — Chrome cannot report how
+tall the page ended up, so over-shoot and trim is the only single-pass way to
+get it. Settings comes out around 4,400 device pixels; the site shows it in a
+frame that scrolls.
+
+Two of the seven are the onboarding wizard, which the popup's own tab bar
+cannot reach: `?screen=setup&step=2` is where the token and username are
+entered, and `step=4` is the consent screen — the one worth showing on a page
+that makes claims about what is collected.
 
 Each `<img>` carries a `data-shot` base name and the theme decides the suffix:
 
@@ -71,7 +85,8 @@ img/popup-sheets-dark.png     Signal
 img/popup-sheets-light.png    Modernist
 ```
 
-Adding a screen is two files and one tab button — no mapping to keep in sync.
+Adding a screen is two files, one tab button and one panel — no mapping to
+keep in sync, because `SCREENS` in `site.js` is read from the buttons.
 
 To retake them after a UI change:
 
@@ -83,10 +98,16 @@ cd ../LeetSync-main && node scripts/make-preview.mjs
 bash ../leetsync-site/scripts/capture-screens.sh
 ```
 
-The previews accept `?theme=signal|light` and
-`?tab=dashboard|problems|sheets|battle|settings`, and set `data-preview-ready`
-on `<html>` once painted, so the capture waits for the real thing rather than
-a fixed delay.
+The previews accept `?theme=signal|light`,
+`?tab=dashboard|problems|sheets|battle|settings`, `?screen=setup&step=N`,
+`?full=1` and `?capture=1`, and set `data-preview-ready` on `<html>` once
+painted, so the capture waits for the real thing rather than a fixed delay.
+`capture=1` also stops animations and hides whatever the developer happens to
+be broadcasting that day, which is live data and would otherwise land on top of
+whichever screen is being photographed.
+
+The tracker is deliberately **not** captured full-height: it lists all 895
+problems, so growing it to fit photographs the dataset instead of the page.
 
 ## Release notes
 
@@ -105,26 +126,14 @@ It takes the notes for the version in `manifest.json` rather than
 splits `Fixed:` lines into their own column. If the file is missing or has no
 notes the section hides itself.
 
-## Chrome Web Store figures
+## No public usage figures
 
-The "Real usage" section reads `data/store-stats.json`. Those numbers **cannot
-be fetched live** — the Chrome Web Store API covers publishing only (upload,
-update, publish), so install counts and the region/OS breakdowns exist purely
-in the dashboard UI and its *Export to CSV* buttons.
-
-To refresh them: Dashboard → your item → **Stats**, hit *Export to CSV* on the
-panels you want, drop the files in a folder, then
-
-```bash
-node scripts/import-store-csv.mjs ./csv
-```
-
-It matches files by name (`install`, `uninstall`, `region`, `os`), reports
-anything it cannot parse instead of guessing, and leaves the previous value in
-place. Set `period` by hand to the range the dashboard was showing.
-
-Editing the JSON directly is fine too. If the file is missing or malformed the
-section hides itself rather than showing a broken claim.
+The site used to carry an install count, a retention percentage and a
+country-by-country breakdown, imported from the Chrome Web Store dashboard's
+CSV exports. That section is gone, along with `data/store-stats.json` and its
+importer. Those numbers are the developer's own dashboard; publishing them
+tells a visitor how few other people have installed it, which is not
+information they came for.
 
 ## The store link
 

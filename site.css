@@ -37,7 +37,21 @@ a[data-cta-ghost]:hover { background: var(--hover); transform: translate(-1px, -
 [data-foot-link]:hover { color: var(--ac) !important; }
 [data-policy-link]:hover { border-bottom-color: var(--ac) !important; }
 
-[data-tab-btn]:hover[aria-selected="false"] { background: var(--hover); color: var(--tx); }
+[data-screen-btn]:hover[aria-selected="false"] { background: var(--hover); color: var(--tx); }
+
+/* Every screen panel is authored with an inline `display:grid`, and an inline
+   declaration outranks the user-agent's own `[hidden] { display: none }` — so
+   hiding six of the seven left all seven stacked down the page. */
+[hidden] { display: none !important; }
+
+/* The frame is a window on to a whole-screen capture, so it scrolls. A thin
+   rule keeps that legible on trackpads, which draw no bar until you move. */
+[data-screen-scroll] { scrollbar-width: thin; scrollbar-color: var(--bd-soft) transparent; }
+[data-screen-scroll]::-webkit-scrollbar { width: 9px; }
+[data-screen-scroll]::-webkit-scrollbar-thumb {
+  background: var(--bd-soft); border-radius: 9px;
+  border: 2px solid transparent; background-clip: content-box;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

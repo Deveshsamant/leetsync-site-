@@ -59,15 +59,18 @@ const THEMES = {
   },
 };
 
-const TABS = ['dashboard', 'problems', 'sheets', 'battle', 'settings'];
-const NOTES = {
-  dashboard: 'Dashboard — sync status, streak and 90-day activity',
-  problems: 'Solved — search, filter by difficulty, or by what you struggled with',
-  sheets: 'Sheets — pick a study sheet and track it as you solve',
-  battle: 'Battle — compare progress with friends by GitHub username',
-  settings: 'Settings — repository, themes, data export and usage reporting',
-};
-const RAIL_IDS = ['top', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy', 'usage'];
+/**
+ * The extension's screens, in the order the tab strip lists them.
+ *
+ * Two of them — the wizard and its consent step — are screens the popup's own
+ * tab bar cannot reach, which is exactly why they are worth showing: a page
+ * that makes claims about what is collected should show the screen where the
+ * question is actually asked.
+ *
+ * Read from the markup rather than declared twice, so adding a screen is a
+ * panel and a button and nothing else.
+ */
+const RAIL_IDS = ['top', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
 
 /**
  * The Chrome Web Store listing.
@@ -117,15 +120,40 @@ function paintShots() {
   });
 }
 
+const SCREENS = qa('[data-screen-btn]').map((b) => b.dataset.screenBtn);
+
 function paintTabs() {
   const on = THEMES[state.theme];
-  qa('[data-tab-btn]').forEach((b) => {
-    const active = TABS.indexOf(b.dataset.tabBtn) === state.tabIndex;
+  qa('[data-screen-btn]').forEach((b) => {
+    const active = SCREENS.indexOf(b.dataset.screenBtn) === state.tabIndex;
     b.setAttribute('aria-selected', String(active));
+    b.setAttribute('tabindex', active ? '0' : '-1');
     b.style.background = active ? on.vars['--tab-on-bg'] : 'transparent';
     b.style.color = active ? on.vars['--tab-on-fg'] : 'var(--tx3)';
     b.style.borderColor = active ? on.vars['--tab-on-bd'] : 'var(--bd)';
   });
+}
+
+/**
+ * Show one screen.
+ *
+ * The panels carry a whole-page capture each, so they are swapped rather than
+ * stacked: keeping seven tall images live would leave the section scrolling
+ * past anything a visitor is reading. The frame is scrolled back to the top on
+ * the way in, because arriving half way down someone else's screenshot reads
+ * as a broken image.
+ */
+function showScreen(i) {
+  if (i < 0 || i >= SCREENS.length || i === state.tabIndex) return;
+  state.tabIndex = i;
+  qa('[data-screen-panel]').forEach((panel, n) => {
+    panel.hidden = n !== i;
+    if (n === i) {
+      const scroller = panel.querySelector('[data-screen-scroll]');
+      if (scroller) scroller.scrollTop = 0;
+    }
+  });
+  paintTabs();
 }
 
 function setTheme(name, silent) {
@@ -159,37 +187,29 @@ function setTheme(name, silent) {
 
 // ── Events ───────────────────────────────────────────────────
 
-/** Scroll the pinned screens section to the slice that shows one tab. */
-function jumpToTab(i) {
-  const sec = q('[data-pin-screens]');
-  if (!sec || i < 0) return;
-  const top = sec.offsetTop;
-  const span = sec.offsetHeight - window.innerHeight;
-  window.scrollTo({ top: top + span * ((i + 0.5) / TABS.length), behavior: 'smooth' });
-}
-
 root.addEventListener('click', (e) => {
   if (e.target.closest('[data-act="theme"]')) {
     setTheme(state.theme === 'signal' ? 'modernist' : 'signal');
     return;
   }
-  const tab = e.target.closest('[data-tab-btn]');
-  if (tab) jumpToTab(TABS.indexOf(tab.dataset.tabBtn));
+  const tab = e.target.closest('[data-screen-btn]');
+  if (tab) showScreen(SCREENS.indexOf(tab.dataset.screenBtn));
 });
 
 root.addEventListener('keydown', (e) => {
-  if (!e.target.closest('[data-tab-btn]')) return;
+  if (!e.target.closest('[data-screen-btn]')) return;
   if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
   e.preventDefault();
-  const next = (state.tabIndex + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length;
-  jumpToTab(next);
-  const btn = q('[data-tab-btn="' + TABS[next] + '"]');
+  const next = (state.tabIndex + (e.key === 'ArrowRight' ? 1 : SCREENS.length - 1))
+    % SCREENS.length;
+  showScreen(next);
+  const btn = q('[data-screen-btn="' + SCREENS[next] + '"]');
   if (btn) btn.focus();
 });
 
 /** The hero screenshot and the pinned stage lean towards the cursor. */
 function tiltAll(e) {
-  ['[data-tilt]', '[data-shot-stage]', '[data-readme-shot]'].forEach((sel) => {
+  ['[data-tilt]', '[data-readme-shot]'].forEach((sel) => {
     const el = q(sel);
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -335,12 +355,12 @@ function applyResponsive() {
     shot.style.margin = w < 900 ? '0 auto' : '0';
   }
 
-  const stage = q('[data-shot-stage]');
-  if (stage) {
-    const h = Math.min(471, Math.max(300, window.innerHeight - 340));
-    stage.style.height = h + 'px';
-    stage.style.width = Math.round(h / 1.4286) + 'px';
-  }
+  // The screenshot and its explanation sit side by side until there is not
+  // room for a 360px column and readable prose at the same time.
+  qa('[data-screen-panel]').forEach((panel) => {
+    panel.style.gridTemplateColumns = w < 900
+      ? 'minmax(0,1fr)' : 'minmax(0,360px) minmax(0,1fr)';
+  });
 }
 
 window.addEventListener('resize', applyResponsive);
@@ -416,25 +436,6 @@ function tick(now) {
     });
   }
 
-  // Pinned screens — scroll position picks the tab
-  const pin = q('[data-pin-screens]');
-  if (pin) {
-    const r = pin.getBoundingClientRect();
-    const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    const idx = clamp(Math.floor(p * TABS.length * 0.999), 0, TABS.length - 1);
-    if (idx !== state.tabIndex) {
-      state.tabIndex = idx;
-      paintTabs();
-      const note = q('[data-shot-note]');
-      if (note) note.textContent = NOTES[TABS[idx]];
-      qa('[data-tab-shot]').forEach((img, i) => {
-        img.style.opacity = i === idx ? '1' : '0';
-        img.style.transform = i === idx
-          ? 'none' : 'translateY(' + (i < idx ? -14 : 14) + 'px) scale(.985)';
-      });
-    }
-  }
-
   // Tracker rises out of the page as it enters
   const tr = q('[data-tracker-shot]');
   if (tr) {
@@ -480,21 +481,14 @@ function tick(now) {
 }
 
 
-// ── Store figures ────────────────────────────────────────────
+// ── Release notes ────────────────────────────────────────────
 
 /**
- * Chrome Web Store numbers, from data/store-stats.json.
- *
- * They cannot be fetched live: the Web Store API covers publishing only, so
- * install counts exist purely in the dashboard and its CSV exports. The file
- * is refreshed by scripts/import-store-csv.mjs. If it is missing or malformed
- * the section stays hidden rather than showing a broken claim.
- */
-/**
- * Release notes, written by scripts/import-changelog.mjs from the extension's
- * remote-config.json. Same reasoning as the usage figures: a missing or empty
- * file leaves the section hidden rather than announcing a release with nothing
- * to say.
+ * Written by scripts/import-changelog.mjs from the extension's own
+ * remote-config.json — the same notes that drive the What's New modal in the
+ * popup, so the site cannot describe a release differently from the extension
+ * announcing it. A missing or empty file leaves the section hidden rather than
+ * announcing a release with nothing to say.
  */
 async function loadChangelog() {
   const section = q('[data-changelog]');
@@ -539,75 +533,6 @@ async function loadChangelog() {
   section.hidden = false;
 }
 
-async function loadUsage() {
-  const section = q('[data-usage]');
-  if (!section) return;
-
-  let d;
-  try {
-    const res = await fetch('data/store-stats.json', { cache: 'no-cache' });
-    if (!res.ok) return;
-    d = await res.json();
-  } catch {
-    return;                              // no figures, no section
-  }
-  if (!d || typeof d.installs !== 'number' || d.installs <= 0) return;
-
-  const uninstalls = typeof d.uninstalls === 'number' ? d.uninstalls : 0;
-  const active = Math.max(0, d.installs - uninstalls);
-
-  const set = (sel, text) => { const el = q(sel); if (el) el.textContent = text; };
-  set('[data-usage-installs]', d.installs.toLocaleString());
-  set('[data-usage-active]', active.toLocaleString());
-  set('[data-usage-kept]', Math.round((active / d.installs) * 100) + '%');
-  set('[data-usage-countries]', String((d.regions || []).length || '—'));
-
-  const period = q('[data-usage-period]');
-  if (period && d.period && d.period.from && d.period.to) {
-    const fmt = (iso) => {
-      const [y, m, day] = iso.split('-').map(Number);
-      return new Date(Date.UTC(y, m - 1, day))
-        .toLocaleDateString(undefined, { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
-    };
-    period.textContent = `${fmt(d.period.from)} to ${fmt(d.period.to)}`;
-  } else if (period) {
-    period.textContent = 'to date';
-  }
-
-  const bars = (sel, rows) => {
-    const host = q(sel);
-    if (!host || !rows) return;
-    host.innerHTML = '';
-    const top = Math.max(1, ...rows.map((r) => r.share));
-    for (const row of rows) {
-      const line = document.createElement('div');
-      line.style.cssText = 'display:grid;grid-template-columns:minmax(84px,120px) minmax(0,1fr) 44px;align-items:center;gap:12px';
-
-      const name = document.createElement('span');
-      name.style.cssText = 'font-size:13.5px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
-      name.textContent = row.name;
-      name.title = row.name;
-
-      const track = document.createElement('span');
-      track.style.cssText = 'display:block;height:9px;background:var(--hover);border-radius:calc(var(--r-sm) / 2);overflow:hidden;transition:background .45s';
-      const fill = document.createElement('span');
-      fill.style.cssText = `display:block;height:100%;width:${(row.share / top) * 100}%;background:var(--ac);transition:background .45s`;
-      track.appendChild(fill);
-
-      const val = document.createElement('span');
-      val.style.cssText = 'font-family:var(--f-mono);font-size:12px;color:var(--tx3);text-align:right';
-      val.textContent = row.share + '%';
-
-      line.append(name, track, val);
-      host.appendChild(line);
-    }
-  };
-  bars('[data-usage-regions]', d.regions);
-  bars('[data-usage-platforms]', d.platforms);
-
-  section.hidden = false;
-}
-
 // ── Boot ─────────────────────────────────────────────────────
 
 let stored = null;
@@ -618,7 +543,6 @@ try { stored = localStorage.getItem('leetsync.siteTheme'); } catch { /* private 
 setTheme(stored || 'modernist', true);
 
 loadChangelog();
-loadUsage();
 setupReveals();
 applyResponsive();
 requestAnimationFrame(tick);
