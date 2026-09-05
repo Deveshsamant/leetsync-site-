@@ -2,40 +2,11 @@
 
 **Live at [leetsync-site.vercel.app](https://leetsync-site.vercel.app/)**
 
-Static site for the [LeetSync](https://github.com/Deveshsamant/LeetSync)
-Chrome extension. No build step at deploy time, no dependencies.
+Static landing page for the [LeetSync](https://github.com/Deveshsamant/LeetSync)
+Chrome extension. Three files and a folder of screenshots — no build step, no
+dependencies.
 
 Ported from the Claude Design project **LeetSync Site**.
-
-## Nine pages, one source
-
-`index.html` is the whole site: hero, features, release notes, the submit
-flow, the seven screens, the tracker, the sheets, the README and privacy, in
-one long scroll. It is also the source every other page is cut from.
-
-```bash
-node scripts/build-pages.mjs
-```
-
-writes eight standalone pages — `/features`, `/whats-new`, `/how-it-works`,
-`/screens`, `/tracker`, `/sheets`, `/readme`, `/privacy` — plus `sitemap.xml`
-and `robots.txt`. Each one carries a single section, its own `<title>`,
-description, canonical and share card, the nav with its own link marked, a
-strip linking to the other pages, and the closing call to action.
-
-**Do not edit them.** They open with a banner saying so. The same words living
-on the home page and on a page of their own is only safe while one of the two
-is generated, so a change goes in `index.html` and the script is re-run. The
-head, nav and footer are lifted from `index.html` too, so a header change
-cannot leave eight pages behind.
-
-The script cuts along indentation rather than tag matching: a top-level child
-of `<main>` is a line starting with exactly four spaces and a tag, which is
-reliable where matching `</section>` is not — several sections contain more
-than one. It throws rather than guessing if `index.html` stops having that
-shape, or if a nav link no longer reads what a page expects.
-
-`vercel.json` sets `cleanUrls`, so `screens.html` is served at `/screens`.
 
 ## How it is put together
 
@@ -56,7 +27,6 @@ matches and there is nothing to flash before JS runs.
 
 | Behaviour | Driven by |
 | --- | --- |
-| Nav link for the page you are on, lit | `data-navhere`, set by the generator |
 | Scroll progress bar, section rail, nav shrink | one `requestAnimationFrame` loop |
 | Hero grid parallax, cursor spotlight, card tilt | pointer position, same loop |
 | **How it works** — 300vh pinned, line and token track scroll | `data-pin-flow` |
