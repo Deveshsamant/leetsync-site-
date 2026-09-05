@@ -135,6 +135,19 @@ importer. Those numbers are the developer's own dashboard; publishing them
 tells a visitor how few other people have installed it, which is not
 information they came for.
 
+## Screenshots are cached for a day, not a year
+
+`/img/` used to be served `max-age=31536000, immutable`, which is a promise
+that the bytes behind a URL never change. They do: retaking the screenshots
+replaces every file in place, under the same name, because the theme suffix is
+what the markup keys on. A returning visitor would have kept the old shots for
+a year.
+
+It is now `max-age=86400, stale-while-revalidate=604800` — a day of hard
+caching, then a week of serving the cached copy while a fresh one is fetched
+behind it. Nobody waits on the network, and nobody is looking at last year's
+UI. `vercel.json` cannot carry comments, so the reasoning lives here.
+
 ## The store link
 
 `STORE_URL` at the top of `site.js` feeds every element marked
