@@ -73,6 +73,20 @@ const THEMES = {
 const RAIL_IDS = ['top', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
 
 /**
+ * Where each section also lives as a page of its own.
+ *
+ * Every section on the home page has a standalone URL, and the nav points at
+ * those rather than at anchors — so highlighting "where am I" on the long
+ * scroll means mapping the section the reader has reached back to its page.
+ * A section with no page simply highlights nothing.
+ */
+const PAGE_OF = {
+  features: '/features', whatsnew: '/whats-new', flow: '/how-it-works',
+  screens: '/screens', tracker: '/tracker', sheets: '/sheets',
+  readme: '/readme', privacy: '/privacy',
+};
+
+/**
  * The Chrome Web Store listing.
  *
  * Every element marked data-store-link points here. The utm_source the store's
@@ -473,10 +487,14 @@ function tick(now) {
       if (lbl) lbl.style.opacity = i === active ? '1' : '0';
       a.style.color = i === active ? 'var(--ac)' : 'var(--tx4)';
     });
-    const href = '#' + RAIL_IDS[active];
-    qa('[data-navlink]').forEach((a) => {
-      a.style.color = a.getAttribute('href') === href ? 'var(--ac)' : 'var(--tx3)';
-    });
+    // A generated page marks its own nav link and stays marked; only the home
+    // page's nav follows the scroll, because only it has sections to follow.
+    if (!q('[data-navhere]')) {
+      const href = PAGE_OF[RAIL_IDS[active]];
+      qa('[data-navlink]').forEach((a) => {
+        a.style.color = a.getAttribute('href') === href ? 'var(--ac)' : 'var(--tx3)';
+      });
+    }
   }
 }
 
@@ -541,6 +559,10 @@ try { stored = localStorage.getItem('leetsync.siteTheme'); } catch { /* private 
 // visitor gets it whatever their OS prefers — the markup is authored in these
 // tokens too, so first paint already matches and there is nothing to flash.
 setTheme(stored || 'modernist', true);
+
+// The page's own nav link, lit for as long as you are on it.
+const here = q('[data-navhere]');
+if (here) here.style.color = 'var(--ac)';
 
 loadChangelog();
 setupReveals();
