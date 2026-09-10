@@ -46,6 +46,10 @@
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Top</span>
     </a>
+    <a data-rail-dot href="#watch" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
+      <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
+      <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Watch</span>
+    </a>
     <a data-rail-dot href="#features" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:5px 0;color:var(--tx4)">
       <span data-rail-bar style="display:block;width:16px;height:2px;background:var(--bd);transition:width .3s,background .3s"></span>
       <span style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .3s">Features</span>
@@ -86,6 +90,7 @@
       <span style="font-family:var(--f-head);font-weight:var(--head-w);font-size:17px;letter-spacing:var(--brand-ls,.02em);text-transform:var(--head-tt)">LeetSync</span>
     </a>
     <nav data-navlinks style="display:flex;gap:24px">
+      <a data-navlink href="#watch" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">Watch</a>
       <a data-navlink href="#features" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">Features</a>
       <a data-navlink href="#whatsnew" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">What's new</a>
       <a data-navlink href="#flow" style="color:var(--tx3);text-decoration:none;font-size:14.5px;transition:color .2s">How it works</a>
@@ -178,6 +183,45 @@
         </div>
       </div>
     </div>
+
+
+    <section id="watch" style="background:var(--band);border-bottom:var(--bw) solid var(--bd-soft);padding:clamp(56px,9vw,110px) clamp(16px,4vw,44px);transition:background .45s">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="max-width:64ch;margin-bottom:clamp(24px,3.5vw,38px)">
+          <span data-reveal="up" style="display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--kick-c);font-weight:var(--kick-w);margin-bottom:14px">Twenty-seven seconds</span>
+          <h2 data-reveal="up" data-reveal-delay="60" style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0;line-height:1.05;font-size:clamp(30px,4.2vw,46px)">Watch a solve become a commit</h2>
+          <p data-reveal="up" data-reveal-delay="120" style="color:var(--tx3);font-size:16.5px;margin:16px 0 0;text-wrap:pretty">
+            Every frame is the extension actually running &mdash; the same captures
+            as the screens below, not mockups of features that do not exist yet.
+            Sound is optional; nothing in it is narrated.</p>
+        </div>
+
+        <figure data-reveal="up" data-reveal-delay="180" style="margin:0">
+          <div style="position:relative;border:var(--bw) solid var(--bd);border-radius:var(--r-sm);box-shadow:var(--btn-sh);background:#08090A;overflow:hidden">
+            <!-- preload="none" so a 2.4MB file costs a visitor nothing until
+                 they ask for it; the poster carries the frame in the meantime. -->
+            <video data-tour poster="img/ad-poster.jpg" preload="none" playsinline controls
+                   width="1280" height="720"
+                   style="display:block;width:100%;height:auto;aspect-ratio:16/9;background:#08090A">
+              <source src="video/leetsync-tour.mp4" type="video/mp4">
+              <p style="padding:26px;color:#E9EDF0;font-size:15px">This browser will not play the film.
+                <a href="video/leetsync-tour.mp4" style="color:#EC3013">Download it instead &rarr;</a></p>
+            </video>
+            <button data-tour-play type="button" aria-label="Play the tour, 27 seconds"
+                    style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:0;padding:0;cursor:pointer;background:linear-gradient(180deg,rgba(8,9,10,.06),rgba(8,9,10,.42));transition:background .25s">
+              <span style="display:inline-flex;align-items:center;gap:13px;background:var(--ac);color:var(--ac-ink);padding:15px 26px;font-family:var(--f-head);font-weight:var(--btn-w);font-size:15.5px;letter-spacing:var(--btn-ls);text-transform:var(--btn-tt);border:var(--bw) solid var(--ac);border-radius:var(--r-sm);box-shadow:var(--btn-sh)">
+                <span aria-hidden="true" style="display:block;width:0;height:0;border-left:13px solid currentColor;border-top:8px solid transparent;border-bottom:8px solid transparent"></span>Play the tour
+              </span>
+            </button>
+          </div>
+          <figcaption style="display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx4)">
+            <span>0:27 &middot; no narration</span>
+            <span>Captured from the live extension</span>
+            <span><a href="video/leetsync-tour.mp4" download style="color:var(--tx4);text-decoration:none;border-bottom:1px solid var(--bd)">Download the film &darr;</a></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
     <section id="features" style="padding:clamp(56px,9vw,110px) clamp(16px,4vw,44px);max-width:1280px;margin:0 auto">
       <div style="max-width:62ch;margin-bottom:clamp(32px,5vw,56px)">

@@ -70,7 +70,7 @@ const THEMES = {
  * Read from the markup rather than declared twice, so adding a screen is a
  * panel and a button and nothing else.
  */
-const RAIL_IDS = ['top', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
+const RAIL_IDS = ['top', 'watch', 'features', 'whatsnew', 'flow', 'screens', 'tracker', 'sheets', 'readme', 'privacy'];
 
 /**
  * The Chrome Web Store listing.
@@ -531,6 +531,27 @@ async function loadChangelog() {
   fill('[data-changelog-fixed]', fixed);
 
   section.hidden = false;
+}
+
+// ── The film ─────────────────────────────────────────────────
+
+/**
+ * The overlay is decoration: it makes the poster read as a film rather than
+ * as one more screenshot. The element carries native `controls` regardless,
+ * so if none of this runs the video still plays.
+ *
+ * It hides on `play` rather than on click, because a browser that refuses the
+ * request should leave the button exactly where it was.
+ */
+const tour = q('[data-tour]');
+const tourPlay = q('[data-tour-play]');
+if (tour && tourPlay) {
+  tourPlay.addEventListener('click', () => {
+    const started = tour.play();
+    if (started && started.catch) started.catch(() => { /* controls remain */ });
+  });
+  tour.addEventListener('play', () => { tourPlay.hidden = true; });
+  tour.addEventListener('ended', () => { tourPlay.hidden = false; });
 }
 
 // ── Boot ─────────────────────────────────────────────────────
