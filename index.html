@@ -127,7 +127,7 @@
             <a data-cta-ghost href="https://github.com/Deveshsamant/LeetSync" style="display:inline-flex;align-items:center;justify-content:flex-start;gap:8px;padding:15px 26px;font-family:var(--f-head);font-weight:var(--btn-w);font-size:15.5px;letter-spacing:var(--btn-ls);text-transform:var(--btn-tt);text-decoration:none;background:transparent;color:var(--tx);border:var(--bw) solid var(--bd);border-radius:var(--r-sm);box-shadow:var(--btn-sh);transition:transform .14s,box-shadow .14s,background .18s">View source</a>
           </div>
           <ul data-hero-el style="list-style:none;margin:34px 0 0;padding:0;display:grid;gap:10px">
-            <li style="position:relative;padding-left:24px;font-size:14.5px;color:var(--tx3)"><span style="position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--ac);border-radius:2px;transition:background .45s"></span>Works with fine-grained tokens — <strong style="color:var(--tx2)">Contents: write</strong>, nothing more</li>
+            <li style="position:relative;padding-left:24px;font-size:14.5px;color:var(--tx3)"><span style="position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--ac);border-radius:2px;transition:background .45s"></span>Works with a classic token — <strong style="color:var(--tx2)">repo</strong> scope, revocable any time</li>
             <li style="position:relative;padding-left:24px;font-size:14.5px;color:var(--tx3)"><span style="position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--ac);border-radius:2px;transition:background .45s"></span>Your token never leaves Chrome storage</li>
             <li style="position:relative;padding-left:24px;font-size:14.5px;color:var(--tx3)"><span style="position:absolute;left:0;top:9px;width:9px;height:9px;background:var(--ac);border-radius:2px;transition:background .45s"></span>Usage reporting is optional — on unless you turn it off</li>
           </ul>
@@ -434,7 +434,7 @@
               <span style="font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ac);padding-top:4px;transition:color .45s">01</span>
               <div>
                 <strong style="display:block;font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);font-size:14.5px;margin-bottom:6px">A token, not an OAuth app</strong>
-                <span style="display:block;color:var(--tx3);font-size:14.5px;line-height:1.6;text-wrap:pretty">A fine-grained GitHub token scoped to one repository with <strong>Contents: Read and write</strong> is the whole permission surface. It is kept in Chrome storage and sent to <code>api.github.com</code> and nowhere else &mdash; LeetSync has no server that could receive it.</span>
+                <span style="display:block;color:var(--tx3);font-size:14.5px;line-height:1.6;text-wrap:pretty">A classic GitHub token with the <code>repo</code> scope — the only kind GitHub lets create a repository, so setup finishes in a click. It is kept in Chrome storage and sent to <code>api.github.com</code> and nowhere else &mdash; LeetSync has no server that could receive it.</span>
               </div>
             </li>
             <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;align-items:start;padding:15px 0;border-top:1px solid var(--bd-soft)">
@@ -448,7 +448,7 @@
               <span style="font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ac);padding-top:4px;transition:color .45s">03</span>
               <div>
                 <strong style="display:block;font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);font-size:14.5px;margin-bottom:6px">The repository can find itself</strong>
-                <span style="display:block;color:var(--tx3);font-size:14.5px;line-height:1.6;text-wrap:pretty"><em>Set up automatically from my token</em> looks for <code>leetcode-solutions</code> on your account and creates it if there is none. You can also type <code>owner/repo</code>, or have a new one made private &mdash; creating a repository is the one thing a fine-grained token cannot do, so that path asks for a classic <code>repo</code> token.</span>
+                <span style="display:block;color:var(--tx3);font-size:14.5px;line-height:1.6;text-wrap:pretty"><em>Set up automatically from my token</em> looks for <code>leetcode-solutions</code> on your account and creates it if there is none. You can also type <code>owner/repo</code>, or have a new one made private. If the token cannot create repositories, LeetSync offers to open GitHub with the name filled in and adopts what comes back.</span>
               </div>
             </li>
             <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;align-items:start;padding:15px 0;border-top:1px solid var(--bd-soft)">

@@ -89,7 +89,7 @@
           <h2 style="font-family:var(--f-head);font-weight:var(--head-w);letter-spacing:var(--head-ls);text-transform:var(--head-tt);margin:0 0 12px;line-height:1.15;font-size:clamp(19px,2.4vw,24px)">Your token and your repository</h2>
           <p style="color:var(--tx3);font-size:15.5px;line-height:1.65;margin:0 0 14px;text-wrap:pretty">You supply a GitHub token and name the repository. LeetSync writes to that repository and nowhere else.</p>
           <p style="color:var(--tx3);font-size:15.5px;line-height:1.65;margin:0 0 14px;text-wrap:pretty">The token is held in Chrome&rsquo;s own storage on your computer and is sent only to <code>api.github.com</code>. It is never sent to LeetSync&rsquo;s server, because there is no code path that would send it and no column that would hold it.</p>
-          <p style="color:var(--tx3);font-size:15.5px;line-height:1.65;margin:0 0 14px;text-wrap:pretty">Keeping the token scoped tightly is your call and your responsibility. A fine-grained token limited to one repository with <strong>Contents: Read and write</strong> is all the extension needs.</p>
+          <p style="color:var(--tx3);font-size:15.5px;line-height:1.65;margin:0 0 14px;text-wrap:pretty">LeetSync asks for a classic personal access token with the <code>repo</code> scope, because that is the only kind GitHub permits to create a repository. That scope reaches every repository on your account. Keeping it, and revoking it when you are done, is your call and your responsibility.</p>
         </div>
       </section>
       <section data-reveal="up" style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;padding:26px 0;border-top:1px solid var(--bd-soft)">
