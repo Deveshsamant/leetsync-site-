@@ -1,6 +1,6 @@
 {
-  "version": "2.0.1",
-  "generatedAt": "2026-09-06T12:09:59.818Z",
+  "version": "2.1.0",
+  "generatedAt": "2026-09-10T05:13:44.762Z",
   "added": [
     "Every submission is now recorded, not just the accepted ones — filter Solved by what took you several tries, or what you have not revisited",
     "Write notes on any problem; they go into that problem's page in your repo",
@@ -13,7 +13,12 @@
     "Use LeetSync on two computers: sign in with the same token and repo and your solved problems, streak, achievements and sheet ticks merge through your own repository — and there is now a Sign out button",
     "A public leaderboard in the Battle tab — all time, this week and today, plus your own position. Hard 10, Medium 5, Easy 3, counted once per problem. Turn on usage reporting to be ranked",
     "Send feedback, an issue or a suggestion from Settings — and get an answer back inside the extension, quoting what you wrote",
-    "The day streak now has its own tile and a flame, lit only while the run is alive"
+    "The day streak now has its own tile and a flame, lit only while the run is alive",
+    "Solutions are no longer pushed with their lines shuffled or cut short — the code now comes from the editor itself rather than from whatever the page had rendered",
+    "Study sheets are listed by what they are rather than by their authors, and a sheet opens at the section you were working in instead of the first one",
+    "Repo setup says what to do when GitHub refuses it, instead of pointing at a permission that would not have helped",
+    "Signing out no longer waits on an unreachable repository",
+    "Terms and conditions, linked from setup and from Settings"
   ],
   "fixed": [
     "the weekly challenge bar showed a number next to an empty bar",
